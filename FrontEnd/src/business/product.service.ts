@@ -1,25 +1,30 @@
 import { Injectable } from '@angular/core';
 import { ApiRestService } from 'src/service/api-rest.service';
+import { Product } from 'src/model/product';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  products: any = [];
+  public products: Product[] = [];
 
   constructor(private apiRest: ApiRestService) { }
 
   GetProducts() {
-    this.apiRest.RestGet("")
-      .subscribe(data => {
-        for (const d of (data as any)) {
-          this.products.push({
-            name: d.nameProduct,
-            price: d.priceProduct
-          });
+    this.products = [];
+    this.apiRest.getProducts()
+      .subscribe(resp => {
+        for (const data of resp.body) {
+          this.products.push(data);
         }
-        console.log(this.apiRest);
       });
+  }
+  DeleteProduct(idProduct: string) {
+    this.apiRest.deleteProduct(idProduct);
+    for (let index = 0; index < this.products.length; index++) {
+      if (this.products[index].idProduct == idProduct)
+        this.products.splice(index, 1);
+    }
   }
 }

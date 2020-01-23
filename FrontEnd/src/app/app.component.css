@@ -14,3 +14,33 @@ h6 {
   margin-top: 2%;
   text-align: right;
 }
+
+.alert {
+  text-align: center;
+}
+
+.div-purchase {
+  border-bottom: solid 1px;
+}
+
+@media (max-width: 600px) {
+  .div-purchase {
+    display: block;
+    border: solid 1px;
+  }
+}
+
+.badge-success {
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.badge-warning {
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.badge-primary {
+  margin-right: 8px;
+  cursor: pointer;
+}

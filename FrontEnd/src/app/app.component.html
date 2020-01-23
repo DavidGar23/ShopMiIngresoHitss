@@ -2,56 +2,110 @@
   <a class="navbar-brand">Mil Ingresos Hitss</a>
 </nav>
 <div class="container">
+  <!-- Productos -->
   <div class="row">
-    <div class="col-12	col-sm-12	col-md-6	col-lg-6	col-xl-6 card-special">
+    <div class="col card-special">
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Productos</h5>
           <div class="alert alert-primary" role="alert">
-            <small class="form-text text-muted">Código: <h6>3</h6></small>
-            <small class="form-text text-muted">Nombre: <h6>Producto 1</h6></small>
-            <small class="form-text text-muted">Precio: <h6>$ 123</h6></small>
-            <div class="div-actions">
-              <button type="button" class="btn btn-sm btn-outline-danger">Eliminar</button>
-              <button type="button" class="btn btn-sm btn-outline-success btn-right">Editar</button>
+            <div class="row div-purchase">
+              <div class="col"><small class="form-text text-muted">Código</small></div>
+              <div class="col"><small class="form-text text-muted">Nombre</small></div>
+              <div class="col"><small class="form-text text-muted">Precio</small></div>
+              <div class="col"><small class="form-text text-muted">Opciones</small></div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-12	col-sm-12	col-md-6	col-lg-6	col-xl-6 card-special">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Clientes</h5>
-          <div class="alert alert-warning" role="alert">
-            <small class="form-text text-muted">Código: <h6>3</h6></small>
-            <small class="form-text text-muted">Nombre: <h6>Felipe Caycedo</h6></small>
-            <small class="form-text text-muted">Identificación: <h6> 123</h6></small>
-            <div class="div-actions">
-              <button type="button" class="btn btn-sm btn-outline-danger">Eliminar</button>
-              <button type="button" class="btn btn-sm btn-outline-success btn-right">Editar</button>
+            <div class="row div-purchase" *ngFor="let obj of productService.products">
+              <div class="col">
+                <h6>{{obj.idProduct}}</h6>
+              </div>
+              <div class="col">
+                <h6>{{obj.nameProduct}}</h6>
+              </div>
+              <div class="col">
+                <h6>{{obj.priceProduct}}</h6>
+              </div>
+              <div class="col">
+                <a class="badge badge-primary" (click)="DeleteProduct(obj.idProduct)">Eliminar</a>
+                <a class="badge badge-primary">Editar</a>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <!-- /Productos -->
+  <!-- Clientes -->
+  <div class="row">
+    <div class="col card-special">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Clientes</h5>
+          <div class="alert alert-warning" role="alert">
+            <div class="row div-purchase">
+              <div class="col"><small class="form-text text-muted">Código</small></div>
+              <div class="col"><small class="form-text text-muted">Nombre</small></div>
+              <div class="col"><small class="form-text text-muted">Identificación</small></div>
+              <div class="col"><small class="form-text text-muted">Opciones</small></div>
+            </div>
+            <div class="row div-purchase" *ngFor="let obj of clientService.clients">
+              <div class="col">
+                <h6>{{obj.idClient}}</h6>
+              </div>
+              <div class="col">
+                <h6>{{obj.nameClient}}</h6>
+              </div>
+              <div class="col">
+                <h6>{{obj.identificationClient}}</h6>
+              </div>
+              <div class="col">
+                <a class="badge badge-warning">Eliminar</a>
+                <a class="badge badge-warning">Editar</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Clientes -->
+  <!-- Compras -->
   <div class="row">
     <div class="col card-special">
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Compras</h5>
-          <div class="alert alert-danger" role="alert">
-            <small class="form-text text-muted">Código: <h6>3</h6></small>
-            <small class="form-text text-muted">Nombre: <h6>Felipe Caycedo</h6></small>
-            <small class="form-text text-muted">Identificación: <h6> 123</h6></small>
-            <div class="div-actions">
-              <button type="button" class="btn btn-sm btn-outline-danger">Eliminar</button>
-              <button type="button" class="btn btn-sm btn-outline-success btn-right">Editar</button>
+          <div class="alert alert-success" role="alert">
+            <div class="row div-purchase">
+              <div class="col"><small class="form-text text-muted">Código</small></div>
+              <div class="col"><small class="form-text text-muted">Fecha</small></div>
+              <div class="col"><small class="form-text text-muted">Cliente</small></div>
+              <div class="col"><small class="form-text text-muted">Producto</small></div>
+              <div class="col"><small class="form-text text-muted">Precio</small></div>
+            </div>
+            <div class="row div-purchase" *ngFor="let obj of purchaseService.purchase">
+              <div class="col">
+                <a class="badge badge-success">Eliminar</a>
+                <h6>{{obj.idPurchase}}</h6>
+              </div>
+              <div class="col">
+                <h6>{{obj.datePurchase}}</h6>
+              </div>
+              <div class="col">
+                <h6>{{obj.idClient.nameClient}}</h6>
+              </div>
+              <div class="col">
+                <h6>{{obj.idProduct.nameProduct}}</h6>
+              </div>
+              <div class="col">
+                <h6>{{obj.idProduct.priceProduct}}</h6>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <!-- /Compras -->
 </div>

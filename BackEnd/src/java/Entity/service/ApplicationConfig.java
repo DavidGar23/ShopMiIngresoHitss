@@ -29,6 +29,7 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(Entity.NewCrossOriginResourceSharingFilter.class);
         resources.add(Entity.service.TblClientFacadeREST.class);
         resources.add(Entity.service.TblProductFacadeREST.class);
         resources.add(Entity.service.TblPurchaseFacadeREST.class);
