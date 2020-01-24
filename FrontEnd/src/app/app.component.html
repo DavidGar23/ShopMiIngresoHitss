@@ -7,7 +7,8 @@
     <div class="col card-special">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Productos</h5>
+          <h5 class="card-title">Productos <a class="badge badge-primary"
+              (click)="AddProduct(modalProduct, null)">Agregar</a></h5>
           <div class="alert alert-primary" role="alert">
             <div class="row div-purchase">
               <div class="col"><small class="form-text text-muted">Código</small></div>
@@ -27,7 +28,7 @@
               </div>
               <div class="col">
                 <a class="badge badge-primary" (click)="DeleteProduct(obj.idProduct)">Eliminar</a>
-                <a class="badge badge-primary">Editar</a>
+                <a class="badge badge-primary" (click)="AddProduct(modalProduct, obj)">Editar</a>
               </div>
             </div>
           </div>
@@ -41,7 +42,8 @@
     <div class="col card-special">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Clientes</h5>
+          <h5 class="card-title">Clientes <a class="badge badge-warning"
+              (click)="AddClient(modalClient, null)">Agregar</a></h5>
           <div class="alert alert-warning" role="alert">
             <div class="row div-purchase">
               <div class="col"><small class="form-text text-muted">Código</small></div>
@@ -60,8 +62,8 @@
                 <h6>{{obj.identificationClient}}</h6>
               </div>
               <div class="col">
-                <a class="badge badge-warning">Eliminar</a>
-                <a class="badge badge-warning">Editar</a>
+                <a class="badge badge-warning" (click)="DeleteClient(obj.idClient)">Eliminar</a>
+                <a class="badge badge-warning" (click)="AddClient(modalClient, obj)">Editar</a>
               </div>
             </div>
           </div>
@@ -86,7 +88,7 @@
             </div>
             <div class="row div-purchase" *ngFor="let obj of purchaseService.purchase">
               <div class="col">
-                <a class="badge badge-success">Eliminar</a>
+                <a class="badge badge-success" (click)="DeletePurchase(obj.idPurchase)">Eliminar</a>
                 <h6>{{obj.idPurchase}}</h6>
               </div>
               <div class="col">
@@ -109,3 +111,139 @@
   </div>
   <!-- /Compras -->
 </div>
+
+<a class="float" (click)="AddPurchase(modalCar, null)">
+  <fa name="shopping-cart" size="3x"></fa>
+</a>
+
+<ng-template #modalProduct let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Producto</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form #product="ngForm" (ngSubmit)="SaveProduct(product.value)">
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-6">
+          <input type="number" class="form-control" placeholder="Código" name="idProduct"
+            ngModel="{{productSelect.idProduct}}" disabled>
+        </div>
+        <div class="col-6">
+          <input type="text" class="form-control" placeholder="Nombre" name="nameProduct"
+            ngModel="{{productSelect.nameProduct}}">
+        </div>
+        <div class="col-12">
+          <input type="number" class="form-control" placeholder="Precio" name="priceProduct"
+            ngModel="{{productSelect.priceProduct}}">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Cancelar</button>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #modalClient let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Cliente</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form #client="ngForm" (ngSubmit)="SaveClient(client.value)">
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-6">
+          <input type="number" class="form-control" placeholder="Código" name="idClient"
+            ngModel="{{clientSelect.idClient}}" disabled>
+        </div>
+        <div class="col-6">
+          <input type="text" class="form-control" placeholder="Nombre" name="nameClient"
+            ngModel="{{clientSelect.nameClient}}">
+        </div>
+        <div class="col-12">
+          <input type="number" class="form-control" placeholder="Identificación" name="identificationClient"
+            ngModel="{{clientSelect.identificationClient}}">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Cancelar</button>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #modalCar let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Carrito de Compras</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="card" style="padding: 3%;">
+      <form #purchase="ngForm" (ngSubmit)="AddPurchaseCart(purchase.value)">
+        <div class="row">
+          <div class="col-6">
+            <small>Cliente</small>
+            <select class="form-control form-control-lg" name="idClient" ngModel>
+              <option *ngFor="let obj of clientService.clients" [value]="obj.idClient">{{obj.nameClient}}</option>
+            </select>
+          </div>
+          <div class="col-6">
+            <small>Producto</small>
+            <select class="form-control form-control-lg" name="idProduct" ngModel>
+              <option *ngFor="let obj of productService.products" [value]="obj.idProduct">{{obj.nameProduct}} - $
+                {{obj.priceProduct}}</option>
+            </select>
+          </div>
+          <div class=" col-12 text-right">
+            <button type="submit" class="btn btn-primary">Agregar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="card-special">
+      <div class="card">
+        <div class="card-body">
+          <div class="alert alert-success" role="alert">
+            <div class="row div-purchase">
+              <!-- <div class="col"><small class="form-text text-muted">Código</small></div> -->
+              <div class="col"><small class="form-text text-muted">Fecha</small></div>
+              <div class="col"><small class="form-text text-muted">Cliente</small></div>
+              <div class="col"><small class="form-text text-muted">Producto</small></div>
+              <div class="col"><small class="form-text text-muted">Precio</small></div>
+            </div>
+            <div class="row div-purchase" *ngFor="let obj of purchaseList">
+              <!-- <div class="col">
+                <h6>{{obj.idPurchase}}</h6>
+              </div> -->
+              <div class="col">
+                <a class="badge badge-success" (click)="DeletePurchaseCart(obj.idPurchase)">Eliminar</a>
+                <h6>{{obj.datePurchase}}</h6>
+              </div>
+              <div class="col">
+                <h6>{{obj.idClient.nameClient}}</h6>
+              </div>
+              <div class="col">
+                <h6>{{obj.idProduct.nameProduct}}</h6>
+              </div>
+              <div class="col">
+                <h6>{{obj.idProduct.priceProduct}}</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Cancelar</button>
+    <button type="submit" class="btn btn-primary" (click)="SaveAll()">Comprar</button>
+  </div>
+</ng-template>

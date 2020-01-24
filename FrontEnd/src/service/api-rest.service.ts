@@ -52,14 +52,85 @@ export class ApiRestService {
       });
   }
 
+  updateProduct(product: Product): Promise<Product> {
+    return this.http
+      .put(apiUrl + "tblproduct/" + product.idProduct, product)
+      .toPromise()
+      .then(x => {
+        return Promise.resolve(<Product>x);
+      })
+      .catch(x => {
+        throw x;
+      });
+  }
+
   getClients(): Observable<HttpResponse<ClientM[]>> {
     return this.http.get<ClientM[]>(
       apiUrl + "tblclient", { observe: 'response' });
   }
 
+  addClient(client: ClientM): Promise<ClientM> {
+    return this.http
+      .post(apiUrl + "tblclient", client)
+      .toPromise()
+      .then(x => {
+        return Promise.resolve(<ClientM>x);
+      })
+      .catch(x => {
+        throw x;
+      });
+  }
+
+  deleteClient(idClient: string): Promise<ClientM> {
+    return this.http
+      .delete(apiUrl + "tblclient/" + idClient)
+      .toPromise()
+      .then(x => {
+        return Promise.resolve(<ClientM>x);
+      })
+      .catch(x => {
+        throw x;
+      });
+  }
+
+  updateClient(client: ClientM): Promise<ClientM> {
+    return this.http
+      .put(apiUrl + "tblclient/" + client.idClient, client)
+      .toPromise()
+      .then(x => {
+        return Promise.resolve(<ClientM>x);
+      })
+      .catch(x => {
+        throw x;
+      });
+  }
+
   getPurchase(): Observable<HttpResponse<Purchase[]>> {
     return this.http.get<Purchase[]>(
       apiUrl + "tblpurchase", { observe: 'response' });
+  }
+
+  addPurchase(purchase: Purchase): Promise<Purchase> {
+    return this.http
+      .post(apiUrl + "tblpurchase", purchase)
+      .toPromise()
+      .then(x => {
+        return Promise.resolve(<Purchase>x);
+      })
+      .catch(x => {
+        throw x;
+      });
+  }
+  deletePurchase(idPurchase: string): Promise<Purchase> {
+    return this.http
+      .delete(apiUrl + "tblpurchase/" + idPurchase)
+      .toPromise()
+      .then(x => {
+        return Promise.resolve(<Purchase>x);
+      })
+      .catch(x => {
+        throw x;
+      });
   }
 
 }

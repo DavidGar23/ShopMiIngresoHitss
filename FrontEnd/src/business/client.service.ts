@@ -19,4 +19,23 @@ export class ClientService {
         }
       });
   }
+  DeleteClient(idClient: string) {
+    this.apiRest.deleteClient(idClient);
+    for (let index = 0; index < this.clients.length; index++) {
+      if (this.clients[index].idClient == idClient)
+        this.clients.splice(index, 1);
+    }
+  }
+
+  UpdateClient(client: ClientM) {
+    this.apiRest.updateClient(client);
+    for (let index = 0; index < this.clients.length; index++) {
+      if (this.clients[index].idClient == client.idClient)
+        this.clients[index] = client;
+    }
+  }
+  AddClient(client: ClientM) {
+    this.apiRest.addClient(client);
+    this.clients.push(client);
+  }
 }

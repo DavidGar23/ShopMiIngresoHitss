@@ -44,3 +44,20 @@ h6 {
   margin-right: 8px;
   cursor: pointer;
 }
+.form-control {
+  margin-bottom: 4%;
+}
+
+.float {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 40px;
+  right: 40px;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 50px;
+  text-align: center;
+  box-shadow: 9px 9px 9px #999;
+  padding: 6px;
+}

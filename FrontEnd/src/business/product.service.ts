@@ -27,4 +27,16 @@ export class ProductService {
         this.products.splice(index, 1);
     }
   }
+  UpdateProduct(product: Product) {
+    this.apiRest.updateProduct(product);
+    for (let index = 0; index < this.products.length; index++) {
+      if (this.products[index].idProduct == product.idProduct)
+        this.products[index] = product;
+    }
+  }
+  AddProduct(product: Product) {
+    this.apiRest.addProduct(product);
+    this.products.push(product);
+  }
+
 }
