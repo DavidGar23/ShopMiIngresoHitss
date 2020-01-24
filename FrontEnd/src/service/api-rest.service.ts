@@ -6,7 +6,7 @@ import { Purchase } from 'src/model/purchase';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
-const apiUrl = 'http://localhost:8080/BackEnd/webresources/entity.';
+const apiUrl = 'http://localhost:8080/WebApplication2/webresources/entity.';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
